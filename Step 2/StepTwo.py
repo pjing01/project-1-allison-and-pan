@@ -1,9 +1,9 @@
 # Step Two of Project 1
 # Allison and Pan
 
+import matplotlib.pyplot as plt
 import math
 import numpy as np
-import MatPlotLib as mpl
 
 lengths=[]
 lengths_array=np.array(lengths)
@@ -18,7 +18,8 @@ def swing_period(lengths):
         
 # **ask about what values should be on which axis
 def graph_values(lengths,periods):
-    mpl.plot(periods, lengths)
-    mpl.axis([0,100,0,100])
-    mpl.show()
+    plt.plot(periods, lengths)
+    plt.axis([0,100,0,100])
+    plt.show()
+    
     
