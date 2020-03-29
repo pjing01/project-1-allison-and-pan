@@ -58,33 +58,29 @@ def create_angle_graph(arr):
     plt.axis(xmin=0,xmax=20000,ymin=-.1,ymax=.1)
     plt.show()
     
+def find_period(arr):
+    time = np.array(arr[0])
+    y = np.array(arr[1])
+    y_filt = sig.medfilt(y)
+    y_pks, _ = sig.find_peaks(y)
+    y_filt_pks, _ = sig.find_peaks(y_filt)
+    plt.figure(3, figsize=(15,10))
+    plt.subplot(2,2,1)
+    plt.plot(time, y, 'r-', time[y_pks], y[y_pks], 'b.')
+    plt.title('Original')
+    plt.subplot(2,2,3)
+    plt.plot(time, y_filt, 'r-', time[y_filt_pks], y_filt[y_filt_pks], 'b.')
+    plt.title('Original Median Filtered')
+    plt.tight_layout()
+    plt.show()
+    
+    
 # MAIN
 os.chdir(path)
-#data_files = ['24.5cm.csv', '30cm.csv', '35cm.csv', '41cm.csv', '46cm.csv']
-#for length_file in data_files:
-#    print('\n\n' + length_file + ':')
-#    newarr=create_acceleration_array(length_file)
-#    create_acceleration_lists(newarr)
-#    otherarr=create_angle_array(newarr)
-
-newarr=create_acceleration_array('30cm.csv')
-create_acceleration_lists(newarr)
-otherarr=create_angle_array(newarr)
-    
-time = np.array(otherarr[0])
-y = np.array(otherarr[1])
-y_filt = sig.medfilt(y)
-
-y_pks, _ = sig.find_peaks(y)
-y_filt_pks, _ = sig.find_peaks(y_filt)
-
-plt.figure(3, figsize=(15,10))
-plt.subplot(2,2,1)
-plt.plot(time, y, 'r-', time[y_pks], y[y_pks], 'b.')
-plt.title('Original')
-plt.subplot(2,2,3)
-plt.plot(time, y_filt, 'r-', time[y_filt_pks], y_filt[y_filt_pks], 'b.')
-plt.title('Original Median Filtered')
-
-plt.tight_layout()
-plt.show()
+data_files = ['24.5cm.csv', '30cm.csv', '35cm.csv', '41cm.csv', '46cm.csv']
+for length_file in data_files:
+    print('\n\n' + length_file + ':')
+    newarr=create_acceleration_array(length_file)
+    create_acceleration_lists(newarr)
+    otherarr=create_angle_array(newarr)
+    find_period(otherarr)
