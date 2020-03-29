@@ -48,7 +48,7 @@ def create_angle_array(arr):
         num=info[1]
         timelist.append(info[0])
         thetalist.append(math.atan2(num,denom))
-    array=[timelist,thetalist]
+    array=np.array([timelist,thetalist])
     return array
 
 def create_angle_graph(arr):
@@ -88,4 +88,3 @@ plt.title('Original Median Filtered')
 
 plt.tight_layout()
 plt.show()
-
