@@ -49,13 +49,13 @@ def create_angle_array(arr):
         timelist.append(info[0])
         thetalist.append(math.atan2(num,denom))
     array=np.array([timelist,thetalist])
+    create_angle_graph(array)
     return array
 
 def create_angle_graph(arr):
     plt.figure(2, figsize=(15,10))
     plt.title('Pendulum Angle vs. Time')
     plt.plot(arr[0],arr[1])
-    plt.axis(xmin=0,xmax=20000,ymin=-.1,ymax=.1)
     plt.show()
     
 def find_period(arr):
@@ -73,7 +73,6 @@ def find_period(arr):
     plt.title('Original Median Filtered')
     plt.tight_layout()
     plt.show()
-    
     
 # MAIN
 os.chdir(path)
