@@ -73,6 +73,9 @@ def find_period(arr):
     plt.title('Original Median Filtered')
     plt.tight_layout()
     plt.show()
+    print(y_filt[y_filt_pks])
+    print(time[y_filt_pks])
+    
     
 # MAIN
 os.chdir(path)
