@@ -77,8 +77,8 @@ def create_peak_graph(time, y, y_filt):
     plt.tight_layout()
     plt.show()
     
-def find_period(time, y, y_filt):
-    
+#def find_period(time, y, y_filt):
+
 
     
 # MAIN
