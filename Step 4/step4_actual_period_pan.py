@@ -58,12 +58,15 @@ def create_angle_graph(arr):
     plt.plot(arr[0],arr[1])
     plt.show()
     
-def find_period(arr):
+def find_peaks(arr):
     time = np.array(arr[0])
     y = np.array(arr[1])
     y_filt = sig.medfilt(y)
     y_pks, _ = sig.find_peaks(y)
     y_filt_pks, _ = sig.find_peaks(y_filt)
+    return time, y, y_filt
+    
+def create_peak_graph(time, y, y_filt):
     plt.figure(3, figsize=(15,10))
     plt.subplot(2,2,1)
     plt.plot(time, y, 'r-', time[y_pks], y[y_pks], 'b.')
@@ -73,9 +76,10 @@ def find_period(arr):
     plt.title('Original Median Filtered')
     plt.tight_layout()
     plt.show()
-    print(y_filt[y_filt_pks])
-    print(time[y_filt_pks])
     
+def find_period(time, y, y_filt):
+    
+
     
 # MAIN
 os.chdir(path)
