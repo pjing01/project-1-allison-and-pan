@@ -92,4 +92,5 @@ for armlength in lengths:
         #print_system(time[i],pos[i],vel[i], acc[i])
         i += 1
     create_graph(time, pos, vel, acc)
+    find_peaks()
 

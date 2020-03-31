@@ -64,9 +64,6 @@ def find_peaks(arr):
     y_filt = sig.medfilt(y)
     y_pks, _ = sig.find_peaks(y)
     y_filt_pks, _ = sig.find_peaks(y_filt)
-    return time, y, y_filt
-    
-def create_peak_graph(time, y, y_filt):
     plt.figure(3, figsize=(15,10))
     plt.subplot(2,2,1)
     plt.plot(time, y, 'r-', time[y_pks], y[y_pks], 'b.')
@@ -76,10 +73,18 @@ def create_peak_graph(time, y, y_filt):
     plt.title('Original Median Filtered')
     plt.tight_layout()
     plt.show()
+    return find_avg_period(time)
     
-#def find_period(time, y, y_filt):
-
-
+def find_period(time1,time2):
+    return time2-time1
+    
+def find_avg_period(time):
+    i = 1
+    sum_periods = 0
+    while i < len(time):
+        sum_periods += find_period(time[i-1],time[i])
+        i += 1
+    print (sum_periods/len(time))
     
 # MAIN
 os.chdir(path)
@@ -88,5 +93,18 @@ for length_file in data_files:
     print('\n\n' + length_file + ':')
     newarr=create_acceleration_array(length_file)
     create_acceleration_lists(newarr)
-    otherarr=create_angle_array(newarr)
-    find_period(otherarr)
+    anglearr=create_angle_array(newarr)
+    create_angle_graph(anglearr)
+    find_peaks(anglearr)
+    
+    
+#    # parse through file 
+#    newarr=create_acceleration_array(length_file)
+#    # create lists and graphs of time and axes accelerations
+#    create_acceleration_graph(create_acceleration_lists(newarr))
+#    # create list of angles
+#    otherarr=create_angle_array(newarr)
+#    # find peaks of angle array and plot
+#    create_peak_graph(find_peaks(otherarr))
+#    # find avg period
+#    find_avg_period(otherarr)
