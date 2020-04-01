@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 
 # GLOBAL VARIABLES
 gravity = 9.8
-damping = .99993
+dampening = .99993
 
 # CUSTOM FUNCTIONS
 def update_system(acc,pos,vel,time1,time2,armlength):
     # position and velocity update below
     dt = time2-time1
-    velNext = (vel+acc*dt)*damping
+    velNext = (vel+acc*dt)*dampening
     posNext = pos+vel*dt
     accNext = -1*(gravity/armlength)*math.sin(pos)
     return posNext,velNext,accNext
@@ -31,7 +31,7 @@ def create_graph(time, pos, vel, acc):
     plt.xlabel('Time (seconds)')
     plt.ylabel('Position (m)')
     plt.title('Position vs Time')
-    plt.xlim((0, 100)) 
+    plt.xlim((0, 35)) 
     plt.grid()
     # velocity subplot
     plt.subplot(3,1,2)
@@ -39,7 +39,7 @@ def create_graph(time, pos, vel, acc):
     plt.xlabel('Time (seconds)')
     plt.ylabel('Velocity (m/s)')
     plt.title('Velocity vs Time')
-    plt.xlim((0, 100)) # set x range to -1 to 8
+    plt.xlim((0, 35)) # set x range to -1 to 8
     plt.grid()
     # acceleration subplot
     plt.subplot(3,1,3)
@@ -47,7 +47,7 @@ def create_graph(time, pos, vel, acc):
     plt.xlabel('Time (seconds)')
     plt.ylabel('Acceleration (m/s^2)')
     plt.title('Acceleration vs Time')
-    plt.xlim((0, 100)) # set x range to -1 to 8
+    plt.xlim((0, 35)) # set x range to -1 to 8
     plt.grid()
     plt.tight_layout()
     plt.show()
@@ -101,7 +101,7 @@ for armlength in lengths:
     pos = [(math.pi*7/6)]
     vel = [0]
     acc = [0]
-    time = np.linspace(0,100,100001)
+    time = np.linspace(0,35,35001)
     #print_system(time[0],pos[0],vel[0],acc[0])
     i = 1
     while i < len(time):
@@ -110,7 +110,7 @@ for armlength in lengths:
         pos.append(posNext)
         vel.append(velNext)
         acc.append(accNext)
-        print_system(time[i],pos[i],vel[i], acc[i])
+        #print_system(time[i],pos[i],vel[i], acc[i])
         i += 1
     create_graph(time, pos, vel, acc)
     #print('The simulated period for', armlength, 'm is', find_avg_period(time, pos), 's')
