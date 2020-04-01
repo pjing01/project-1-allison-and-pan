@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # GLOBAL VARIABLES
 gravity = 9.8
-damping = .9995
+damping = .99993
 
 # CUSTOM FUNCTIONS
 def update_system(acc,pos,vel,time1,time2,armlength):
@@ -27,27 +27,27 @@ def create_graph(time, pos, vel, acc):
     plt.figure(3, figsize=(15,10))
     # position subplot
     plt.subplot(3,1,1)
-    plt.plot(time, pos, 'ro--') 
+    plt.plot(time, pos, '#9467bd') 
     plt.xlabel('Time (seconds)')
     plt.ylabel('Position (m)')
     plt.title('Position vs Time')
-    plt.xlim((0, 10)) 
+    plt.xlim((0, 35)) 
     plt.grid()
     # velocity subplot
     plt.subplot(3,1,2)
-    plt.plot(time, vel, 'ro--') 
+    plt.plot(time, vel, '#17becf') 
     plt.xlabel('Time (seconds)')
     plt.ylabel('Velocity (m/s)')
     plt.title('Velocity vs Time')
-    plt.xlim((0, 10)) # set x range to -1 to 8
+    plt.xlim((0, 35)) # set x range to -1 to 8
     plt.grid()
     # acceleration subplot
     plt.subplot(3,1,3)
-    plt.plot(time, acc, 'ro--') 
+    plt.plot(time, acc, '#2ca02c') 
     plt.xlabel('Time (seconds)')
     plt.ylabel('Acceleration (m/s^2)')
     plt.title('Acceleration vs Time')
-    plt.xlim((0, 10)) # set x range to -1 to 8
+    plt.xlim((0, 35)) # set x range to -1 to 8
     plt.grid()
     plt.tight_layout()
     plt.show()
@@ -71,16 +71,37 @@ def create_peak_graph(time, y, y_filt):
     plt.tight_layout()
     plt.show()
 
+def find_avg_period(atime, atheta):
+    time = np.array(atime)
+    theta = np.array(atheta)
+    theta=sig.medfilt(theta)
+    peaks=sig.find_peaks(theta)
+    periodtotal=0
+    count=0
+    for i in range(len(peaks[0])-2):
+        index1=int(peaks[0][i])
+        time1=time[index1]
+        index2=int(peaks[0][i+1])
+        time2=time[index2]
+        period=time2-time1
+        while period<1 and i<len(peaks[0])-2:
+            i+=1
+            time2=time[peaks[0][i+1]]
+            period=time2-time1
+        periodtotal+=period
+        count+=1
+    averageperiod=periodtotal/count
+    return averageperiod
 
 #MAIN
 # initial conditions
-lengths = [.245, .30, .35, .41, .46] 
+lengths = [.34, .43, .53, .62, .72] 
 for armlength in lengths:
     print('\n\n' + str(armlength) + 'm:\n')
-    pos = [(math.pi*2/3)]
+    pos = [(math.pi*7/6)]
     vel = [0]
     acc = [0]
-    time = np.linspace(0,10,10001)
+    time = np.linspace(0,35,35001)
     print_system(time[0],pos[0],vel[0],acc[0])
     i = 1
     while i < len(time):
@@ -92,5 +113,5 @@ for armlength in lengths:
         #print_system(time[i],pos[i],vel[i], acc[i])
         i += 1
     create_graph(time, pos, vel, acc)
-    find_peaks()
+    print('The simulated period for', armlength, 'm is', find_avg_period(time, pos), 's')
 

@@ -11,6 +11,8 @@ path = "/Users/panru/Documents/Github/project-1-allison-and-pan/Step 3"
 
 # CUSTON FUNCTIONS
 def create_acceleration_array(fin):
+#
+#
     array = np.loadtxt(fin, delimiter=',')
     return array
 
@@ -98,13 +100,3 @@ for length_file in data_files:
     find_peaks(anglearr)
     
     
-#    # parse through file 
-#    newarr=create_acceleration_array(length_file)
-#    # create lists and graphs of time and axes accelerations
-#    create_acceleration_graph(create_acceleration_lists(newarr))
-#    # create list of angles
-#    otherarr=create_angle_array(newarr)
-#    # find peaks of angle array and plot
-#    create_peak_graph(find_peaks(otherarr))
-#    # find avg period
-#    find_avg_period(otherarr)
